@@ -5,6 +5,7 @@
       <el-radio class="radio" v-model="pushData.push_address" label="test1" v-show="testVisible">test1环境</el-radio>
       <el-radio class="radio" v-model="pushData.push_address" label="test2" v-show="testVisible">test2环境</el-radio>
       <el-radio class="radio" v-model="pushData.push_address" label="pre" v-show="preVisible">预发布环境</el-radio>
+      <el-radio class="radio" v-model="pushData.push_address" label="pro" v-show="proVisible">生产环境</el-radio>
       <br/><br/>
       <el-button type="primary" @click="pushCode"  :disabled="loading">更新代码</el-button>
 
@@ -32,13 +33,14 @@
         dialogVisible: false,
         testVisible: true,
         preVisible: false,
+        proVisible: false,
         pushData: {
           'branch_name': this.branch_name,
           'push_address': 'test1',
-          'card_id': this.card_id,
+          'card_id': this.card_id
         },
-        'pushCodeResult': '',
-        'loading' : false
+        pushCodeResult: '',
+        loading: false
       }
     },
     methods: {
@@ -72,6 +74,13 @@
         this.preVisible = true
         this.pushData.push_address = 'pre'
       }
+    if (this.card_id == 5) {
+        this.dialogVisible = true
+        this.testVisible = false
+        this.preVisible = false
+        this.proVisible = true
+        this.pushData.push_address = 'pro'
+    }
     }
   }
 
