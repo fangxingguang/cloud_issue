@@ -39,9 +39,7 @@
                                             <el-button icon="arrow-left" size="mini" @click="move_task(card,task,-1)"></el-button>
                                         </el-col>
                                         <el-col :span="16">
-                                            <push-code :branch_name="task.task_branch" :card_id="card.card_id" v-if="task.task_branch"></push-code>
-                                            <push-code :branch_name="task.task_name" :card_id="card.card_id" v-else></push-code>
-                                            &nbsp;
+                                            <push-code :branch_name="getBranchName(task)" :card_id="card.card_id"></push-code>
                                         </el-col>
                                         <el-col :span="4">
                                             <el-button icon="arrow-right" size="mini" style="float:right;" @click="move_task(card,task,1)"></el-button>
@@ -466,6 +464,20 @@
             },
             upload_link(file) {
                 window.open(file.response);
+            },
+            getBranchName(task){
+                var fileName = '';
+                if(task.card_id == 26 || task.card_id == 29){
+                    if(task.task_file){
+                        var fileList = JSON.parse(task.task_file);
+                        fileName = fileList[0]['name'];
+                    }
+                }else{
+                    if(task.task_branch){
+                        fileName = task.task_branch;
+                    }
+                }
+                return fileName;
             }
         },
         mounted() {
