@@ -315,7 +315,7 @@
             add_task() {
                 this.$refs.task_form.validate((valid) => {
                     if (valid) {
-                        this.task_form.task_file = this.fileList || [];
+                        this.task_form.task_file = JSON.stringify(this.fileList || []);
                         if (this.task_form.task_id == '') {
                             var _this = this
                             Api.post('/Task/add', this.task_form, function (res) {
@@ -331,6 +331,7 @@
                                         _this.card.tasks[i]['task_name'] = _this.task_form.task_name;
                                         _this.card.tasks[i]['task_level'] = _this.task_form.task_level;
                                         _this.card.tasks[i]['task_des'] = _this.task_form.task_des;
+                                        _this.card.tasks[i]['task_file'] = _this.task_form.task_file;
                                     }
                                 }
                                 _this.TaskBoxVisible = false
@@ -356,6 +357,7 @@
                     task_file: task.task_file,
                     user_id: task.user_id
                 }
+                console.log(task.task_file)
                 this.fileList = JSON.parse(task.task_file || '[]');
                 this.inputContent = task.task_des
             },
@@ -470,7 +472,12 @@
                 if(task.card_id == 26 || task.card_id == 29){
                     if(task.task_file){
                         var fileList = JSON.parse(task.task_file);
-                        fileName = fileList[0]['name'];
+                        for(var file of fileList ){
+                            var name = file.name;
+                            if(this.checkEndStr(name,'.zip') || this.checkEndStr(name,'.tar.gz') || this.checkEndStr(name,'.tar.bz2')){
+                                fileName = name;
+                            }
+                        }
                     }
                 }else{
                     if(task.task_branch){
@@ -478,6 +485,12 @@
                     }
                 }
                 return fileName;
+            },
+            checkEndStr(str,end){
+                if(str.lastIndexOf(end) + end.length == str.length){
+                    return true;
+                }
+                return false;
             }
         },
         mounted() {

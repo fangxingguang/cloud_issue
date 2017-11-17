@@ -7,7 +7,8 @@
       <el-radio class="radio" v-model="pushData.push_address" label="pre" v-show="preVisible">预发布环境</el-radio>
       <el-radio class="radio" v-model="pushData.push_address" label="pro" v-show="proVisible">生产环境</el-radio>
       <el-radio class="radio" v-model="pushData.push_address" label="pre-backend" v-show="backendPreVisible">预发布环境</el-radio>
-      <el-radio class="radio" v-model="pushData.push_address" label="pro-backend" v-show="backendProVisible">生产环境</el-radio>
+      <el-radio class="radio" v-model="pushData.push_address" label="pro-backend-wuxi" v-show="backendProVisible">生产环境-无锡</el-radio>
+      <el-radio class="radio" v-model="pushData.push_address" label="pro-backend-beijing" v-show="backendProVisible">生产环境-北京</el-radio>
       <br/><br/>
       <el-button type="primary" @click="pushCode"  :disabled="loading">更新代码</el-button>
 
@@ -89,7 +90,7 @@
       if (this.card_id == 29) {
           this.dialogVisible = true
           this.backendProVisible = true
-          this.pushData.push_address = 'pro-backend'
+          this.pushData.push_address = 'pro-backend-wuxi'
       }
     }
   }
