@@ -11,6 +11,7 @@ const user = resolve => require(['./views/home/user.vue'], resolve)
 const login = resolve => require(['./views/login.vue'], resolve)
 const log = resolve => require(['./views/home/log.vue'], resolve)
 const help = resolve => require(['./views/home/help.vue'], resolve)
+const pushLog = resolve => require(['./views/home/pushLog.vue'], resolve)
 
 const router = new Router({
     mode: 'history',
@@ -26,9 +27,10 @@ const router = new Router({
                 { path: '/index/:group_id', component: card },
                 { path: '/user', component: user },
                 { path: '/log', component: log },
-                { path: '/help', component: help }
+                { path: '/help', component: help },
+                { path: '/pushLog', component: pushLog }
             ]
-        },
+        }
     ]
 })
 

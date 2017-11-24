@@ -11,6 +11,7 @@
           <el-menu-item index="/">项目</el-menu-item>
           <el-menu-item index="/user">用户</el-menu-item>
           <el-menu-item index="/log">日志</el-menu-item>
+          <el-menu-item index="/pushLog">发布日志</el-menu-item>
           <el-menu-item index="/help">帮助</el-menu-item>
         </el-menu>
       </el-col>
