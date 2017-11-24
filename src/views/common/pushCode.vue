@@ -60,6 +60,7 @@
         },
         methods: {
             pushCode() {
+                this.pushData.branch_name = this.branch_name; //移动任务时，解决分支名不同步bug
                 var _this = this
                 _this.pushCodeResult = ''
                 _this.loading = true
