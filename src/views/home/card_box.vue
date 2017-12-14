@@ -58,7 +58,7 @@
             </div>
         </div>
         <!--编辑窗-->
-        <el-dialog :title="TaskBoxTtile" v-model="TaskBoxVisible" :modal-append-to-body="false">
+        <el-dialog :title="TaskBoxTtile" v-model="TaskBoxVisible" :modal-append-to-body="false" size="large">
             <span>
                 <el-form :model="task_form" ref="task_form" label-width="100px" :rules="rules">
                     <el-form-item label="任务名称" prop="task_name">
@@ -126,7 +126,7 @@
         </el-dialog>
 
         <!--详情-->
-        <el-dialog :title="task_form.task_name" v-model="TaskBoxDetailVisible">
+        <el-dialog :title="task_form.task_name" v-model="TaskBoxDetailVisible" size="large">
             <p v-show="task_form.task_branch">分支名：{{task_form.task_branch}}</p>
             <div class="wangEditor-container">
                 <div class="wangEditor-txt">
@@ -474,6 +474,7 @@
                         var fileList = JSON.parse(task.task_file);
                         for(var file of fileList ){
                             var name = file.name;
+
                             if(this.checkEndStr(name,'.zip') || this.checkEndStr(name,'.tar.gz') || this.checkEndStr(name,'.tar.bz2')){
                                 fileName = name;
                             }
@@ -487,7 +488,7 @@
                 return fileName;
             },
             checkEndStr(str,end){
-                if(str.lastIndexOf(end) + end.length == str.length){
+                if(str.lastIndexOf(end) >=0 && str.lastIndexOf(end) + end.length == str.length){
                     return true;
                 }
                 return false;
