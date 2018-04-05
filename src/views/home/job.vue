@@ -74,7 +74,7 @@
                     <span @click="groupUpdateShow(group)">{{group.name}}</span>
                 </div>
                 <div class="text item task-list-content">
-                    <h6>待处理</h6>
+                    <h6>未开始</h6>
                     <draggable :options="{group:'job'}" class="task-list" @add="dragAdd($event,group.id,0)">
                         <el-button plain class="task-button" v-for="task in group.taskList[0]"
                                    @click="taskUpdateShow(task)" :value="task.id">
@@ -82,7 +82,7 @@
                             <p class="task-end">{{task.end_time}} 结束</p>
                         </el-button>
                     </draggable>
-                    <h6>处理中</h6>
+                    <h6>进行中</h6>
                     <draggable :options="{group:'job'}" class="task-list" @add="dragAdd($event,group.id,1)">
                         <el-button plain class="task-button" v-for="task in group.taskList[1]"
                                    @click="taskUpdateShow(task)" :value="task.id">
@@ -128,13 +128,17 @@
                       </el-date-picker>
                   </el-col>
                 </el-row>
-                 <mavon-editor style="height: 100%;" v-model="taskForm.content"></mavon-editor>
+                 <mavon-editor style="height: 100%;" v-model="taskForm.content"
+                               :toolbarsFlag="editorOption.toolbarsFlag" :subfield="editorOption.subfield"
+                               :defaultOpen="editorOption.defaultOpen"></mavon-editor>
             </span>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="taskDelete(taskForm.id)" type="danger" style="margin-right: 50px;"
                            v-show="taskDeleteVisible">删 除</el-button>
-                <el-button @click="taskDialogClose">取 消</el-button>
-                <el-button type="primary" @click="taskAdd">确 定</el-button>
+                 <el-button type="primary" @click="edit=true" v-show="!edit">编 辑</el-button>
+
+                <el-button @click="taskDialogClose" v-show="edit">取 消</el-button>
+                <el-button type="primary" @click="taskAdd" v-show="edit">确 定</el-button>
             </span>
         </el-dialog>
 
@@ -191,7 +195,8 @@
         groupForm: {
           id: '',
           uid: ''
-        }
+        },
+        edit: true
       }
     },
     created () {
@@ -201,6 +206,21 @@
     computed: {
       jobUpdate () {
         return this.$store.state.job.jobUpdate
+      },
+      editorOption () {
+        if (this.edit) {
+          return {
+            toolbarsFlag: true,
+            subfield: true,
+            defaultOpen: 'preview'
+          }
+        } else {
+          return {
+            toolbarsFlag: false,
+            subfield: false,
+            defaultOpen: 'preview'
+          }
+        }
       }
     },
     watch: {
@@ -213,7 +233,7 @@
         this.taskDialogTitle = '新建任务'
         this.taskDialogVisible = true
         this.taskDeleteVisible = false
-        this.taskContent = ''
+        this.edit = true
       },
       taskDialogClose: function () {
         this.taskDialogVisible = false
@@ -293,6 +313,7 @@
           start_time: Date.strToDate(task.start_time),
           end_time: Date.strToDate(task.end_time)
         }
+        this.edit = false
       },
       taskDelete: function (id) {
         var _this = this
