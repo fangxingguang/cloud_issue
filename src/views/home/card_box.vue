@@ -604,13 +604,3 @@
         color: orangered;
     }
 </style>
-
-<style>
-    .el-card__header {
-        padding: 10px !important;
-    }
-    
-    .el-card__body {
-        padding: 0 !important;
-    }
-</style>

@@ -12,33 +12,35 @@ const login = resolve => require(['./views/login.vue'], resolve)
 const log = resolve => require(['./views/home/log.vue'], resolve)
 const help = resolve => require(['./views/home/help.vue'], resolve)
 const pushLog = resolve => require(['./views/home/pushLog.vue'], resolve)
+const job = resolve => require(['./views/home/job.vue'], resolve)
 
 const router = new Router({
-    mode: 'history',
-    scrollBehavior: () => ({ y: 0 }),
-    routes: [
-        { path: '/login', component: login },
-        {
-            path: '/',
-            component: home,
-            children: [
-                { path: '/', component: index },
-                { path: '/index', component: index },
-                { path: '/index/:group_id', component: card },
-                { path: '/user', component: user },
-                { path: '/log', component: log },
-                { path: '/help', component: help },
-                { path: '/pushLog', component: pushLog }
-            ]
-        }
-    ]
+  mode: 'history',
+  scrollBehavior: () => ({y: 0}),
+  routes: [
+    {path: '/login', component: login},
+    {
+      path: '/',
+      component: home,
+      children: [
+        {path: '/', component: index},
+        {path: '/index', component: index},
+        {path: '/index/:group_id', component: card},
+        {path: '/user', component: user},
+        {path: '/log', component: log},
+        {path: '/help', component: help},
+        {path: '/pushLog', component: pushLog},
+        {path: '/job', component: job}
+      ]
+    }
+  ]
 })
 
 router.beforeEach(({meta, path}, from, next) => {
-    if (!store.state.user.user && path !== '/login') {
-        return next({ path: '/login' })
-    }
-    next()
+  if (!store.state.user.user && path !== '/login') {
+    return next({path: '/login'})
+  }
+  next()
 })
 
 export default router
