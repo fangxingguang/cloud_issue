@@ -58,7 +58,7 @@
                 <div class="text item">
                     <draggable :options="{group:'job'}" class="new-task-list" @add="dragAdd($event,0,0)">
                         <el-button plain class="task-button" @click="taskUpdateShow(task)"
-                                   v-for="task in taskList['list1']" :value="task.id">
+                                   v-for="task in taskList['list1']" :value="task.id" :key="task.id">
                             <p>{{task.title}}</p>
                             <p class="task-end">{{task.end_time}}</p>
                         </el-button>
@@ -77,7 +77,7 @@
                     <h6>未开始</h6>
                     <draggable :options="{group:'job'}" class="task-list" @add="dragAdd($event,group.id,0)">
                         <el-button plain class="task-button" v-for="task in group.taskList[0]"
-                                   @click="taskUpdateShow(task)" :value="task.id">
+                                   @click="taskUpdateShow(task)" :value="task.id" :key="task.id">
                             <p>{{task.title}}</p>
                             <p class="task-end">{{task.end_time}} 结束</p>
                         </el-button>
@@ -85,7 +85,7 @@
                     <h6>进行中</h6>
                     <draggable :options="{group:'job'}" class="task-list" @add="dragAdd($event,group.id,1)">
                         <el-button plain class="task-button" v-for="task in group.taskList[1]"
-                                   @click="taskUpdateShow(task)" :value="task.id">
+                                   @click="taskUpdateShow(task)" :value="task.id" :key="task.id">
                             <p>{{task.title}}</p>
                             <p class="task-end">{{task.end_time}} 结束</p>
                         </el-button>
@@ -93,7 +93,7 @@
                     <h6>已完成</h6>
                     <draggable :options="{group:'job'}" class="task-list" @add="dragAdd($event,group.id,2)">
                         <el-button plain class="task-button" v-for="task in group.taskList[2]"
-                                   @click="taskUpdateShow(task)" :value="task.id">
+                                   @click="taskUpdateShow(task)" :value="task.id" :key="task.id">
                             <p>{{task.title}}</p>
                             <p class="task-end">{{task.end_time}} 结束</p>
                         </el-button>
